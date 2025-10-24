@@ -6,26 +6,32 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header>
-    <h1><a th:href="@{/}">ブログ</a></h1>
-    <nav>
-        <a th:href="@{/admin/articles}">管理画面</a>
-    </nav>
+<header class="site-header">
+    <div class="header-inner">
+        <h1 class="logo"><a th:href="@{/}">ブログ</a></h1>
+        <nav class="main-nav">
+            <a th:href="@{/admin/articles}">管理画面</a>
+        </nav>
+    </div>
 </header>
-<main>
-    <section>
-        <h2>記事一覧</h2>
-        <div th:if="${articles.isEmpty()}">記事がありません。</div>
-        <article th:each="article : ${articles}">
+<main class="page-container">
+    <section class="hero">
+        <h2>ようこそ、最新トレンドを届けるブログへ</h2>
+        <p>編集部が厳選したストーリーを、洗練されたデザインと共にお届けします。気になる記事はカードからチェックしましょう。</p>
+    </section>
+    <section class="article-feed">
+        <h2 class="section-title">記事一覧</h2>
+        <div class="empty-state" th:if="${articles.isEmpty()}">記事がありません。最初の記事を公開してみましょう。</div>
+        <article class="article-card" th:each="article : ${articles}">
+            <div class="article-meta" th:text="${#temporals.format(article.publishedAt, 'yyyy/MM/dd HH:mm')}"></div>
             <h3>
                 <a th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}"></a>
             </h3>
-            <p th:text="${#temporals.format(article.publishedAt, 'yyyy/MM/dd HH:mm')}"></p>
-            <p th:text="${#strings.abbreviate(article.content, 120)}"></p>
+            <p class="article-excerpt" th:text="${#strings.abbreviate(article.content, 120)}"></p>
         </article>
     </section>
 </main>
-<footer>
+<footer class="site-footer">
     <p>&copy; 2024 Blog System</p>
 </footer>
 </body>

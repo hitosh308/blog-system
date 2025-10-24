@@ -6,40 +6,44 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header>
-    <h1>記事管理</h1>
-    <nav>
-        <a th:href="@{/admin/articles}">記事</a>
-        <a th:href="@{/admin/users}">ユーザー</a>
-        <a th:href="@{/}">サイトを見る</a>
-        <a th:href="@{/logout}">ログアウト</a>
-    </nav>
+<header class="site-header">
+    <div class="header-inner">
+        <h1 class="logo">記事管理</h1>
+        <nav class="main-nav">
+            <a th:href="@{/admin/articles}">記事</a>
+            <a th:href="@{/admin/users}">ユーザー</a>
+            <a th:href="@{/}">サイトを見る</a>
+            <a th:href="@{/logout}">ログアウト</a>
+        </nav>
+    </div>
 </header>
-<main>
-    <div class="actions">
+<main class="page-container">
+    <div class="actions" style="margin-bottom: 1.5rem;">
         <a class="button" th:href="@{/admin/articles/new}">新規作成</a>
     </div>
-    <table>
-        <thead>
-        <tr>
-            <th>タイトル</th>
-            <th>公開日時</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="article : ${articles}">
-            <td th:text="${article.title}"></td>
-            <td th:text="${#temporals.format(article.publishedAt, 'yyyy/MM/dd HH:mm')}"></td>
-            <td>
-                <a th:href="@{'/admin/articles/' + ${article.id} + '/edit'}">編集</a>
-                <form th:action="@{'/admin/articles/' + ${article.id} + '/delete'}" method="post" style="display:inline">
-                    <button type="submit" onclick="return confirm('削除しますか？');">削除</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>タイトル</th>
+                <th>公開日時</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="article : ${articles}">
+                <td th:text="${article.title}"></td>
+                <td th:text="${#temporals.format(article.publishedAt, 'yyyy/MM/dd HH:mm')}"></td>
+                <td class="actions">
+                    <a th:href="@{'/admin/articles/' + ${article.id} + '/edit'}">編集</a>
+                    <form class="inline-form" th:action="@{'/admin/articles/' + ${article.id} + '/delete'}" method="post">
+                        <button type="submit" onclick="return confirm('削除しますか？');">削除</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </main>
 </body>
 </html>

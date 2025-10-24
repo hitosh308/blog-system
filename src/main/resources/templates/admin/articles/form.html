@@ -6,21 +6,23 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header>
-    <h1>記事編集</h1>
-    <nav>
-        <a th:href="@{/admin/articles}">記事一覧へ戻る</a>
-    </nav>
+<header class="site-header">
+    <div class="header-inner">
+        <h1 class="logo">記事編集</h1>
+        <nav class="main-nav">
+            <a th:href="@{/admin/articles}">記事一覧へ戻る</a>
+        </nav>
+    </div>
 </header>
-<main>
-    <form th:action="${articleId == null} ? @{/admin/articles} : @{'/admin/articles/' + ${articleId}}"
+<main class="page-container">
+    <form class="form-card" th:action="${articleId == null} ? @{/admin/articles} : @{'/admin/articles/' + ${articleId}}"
           th:object="${articleForm}" method="post">
-        <div>
+        <div class="form-field">
             <label for="title">タイトル</label>
             <input id="title" type="text" th:field="*{title}">
             <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
         </div>
-        <div>
+        <div class="form-field">
             <label for="content">本文</label>
             <textarea id="content" rows="10" th:field="*{content}"></textarea>
             <div class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>

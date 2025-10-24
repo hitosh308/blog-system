@@ -6,42 +6,46 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header>
-    <h1>ユーザー管理</h1>
-    <nav>
-        <a th:href="@{/admin/articles}">記事</a>
-        <a th:href="@{/admin/users}">ユーザー</a>
-        <a th:href="@{/}">サイトを見る</a>
-        <a th:href="@{/logout}">ログアウト</a>
-    </nav>
+<header class="site-header">
+    <div class="header-inner">
+        <h1 class="logo">ユーザー管理</h1>
+        <nav class="main-nav">
+            <a th:href="@{/admin/articles}">記事</a>
+            <a th:href="@{/admin/users}">ユーザー</a>
+            <a th:href="@{/}">サイトを見る</a>
+            <a th:href="@{/logout}">ログアウト</a>
+        </nav>
+    </div>
 </header>
-<main>
-    <div class="actions">
+<main class="page-container">
+    <div class="actions" style="margin-bottom: 1.5rem;">
         <a class="button" th:href="@{/admin/users/new}">新規作成</a>
     </div>
-    <table>
-        <thead>
-        <tr>
-            <th>ユーザー名</th>
-            <th>権限</th>
-            <th>状態</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.role}"></td>
-            <td th:text="${user.enabled} ? '有効' : '無効'"></td>
-            <td>
-                <a th:href="@{'/admin/users/' + ${user.id} + '/edit'}">編集</a>
-                <form th:action="@{'/admin/users/' + ${user.id} + '/delete'}" method="post" style="display:inline">
-                    <button type="submit" onclick="return confirm('削除しますか？');">削除</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>ユーザー名</th>
+                <th>権限</th>
+                <th>状態</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.role}"></td>
+                <td th:text="${user.enabled} ? '有効' : '無効'"></td>
+                <td class="actions">
+                    <a th:href="@{'/admin/users/' + ${user.id} + '/edit'}">編集</a>
+                    <form class="inline-form" th:action="@{'/admin/users/' + ${user.id} + '/delete'}" method="post">
+                        <button type="submit" onclick="return confirm('削除しますか？');">削除</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </main>
 </body>
 </html>
