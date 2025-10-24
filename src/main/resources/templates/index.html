@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ブログ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1><a th:href="@{/}">ブログ</a></h1>
+    <nav>
+        <a th:href="@{/admin/articles}">管理画面</a>
+    </nav>
+</header>
+<main>
+    <section>
+        <h2>記事一覧</h2>
+        <div th:if="${articles.isEmpty()}">記事がありません。</div>
+        <article th:each="article : ${articles}">
+            <h3>
+                <a th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}"></a>
+            </h3>
+            <p th:text="${#temporals.format(article.publishedAt, 'yyyy/MM/dd HH:mm')}"></p>
+            <p th:text="${#strings.abbreviate(article.content, 120)}"></p>
+        </article>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 Blog System</p>
+</footer>
+</body>
+</html>
