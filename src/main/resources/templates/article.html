@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${article.title}">記事</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1><a th:href="@{/}">ブログ</a></h1>
+</header>
+<main>
+    <article>
+        <h2 th:text="${article.title}"></h2>
+        <p th:text="${#temporals.format(article.publishedAt, 'yyyy/MM/dd HH:mm')}"></p>
+        <div class="content" th:utext="${#strings.replace(article.content, '\n', '<br/>')}"></div>
+    </article>
+</main>
+<footer>
+    <p>&copy; 2024 Blog System</p>
+</footer>
+</body>
+</html>

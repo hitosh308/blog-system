@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー編集</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1>ユーザー編集</h1>
+    <nav>
+        <a th:href="@{/admin/users}">ユーザー一覧へ戻る</a>
+    </nav>
+</header>
+<main>
+    <form th:action="${userId == null} ? @{/admin/users} : @{'/admin/users/' + ${userId}}"
+          th:object="${userAccountForm}" method="post">
+        <div>
+            <label for="username">ユーザー名</label>
+            <input id="username" type="text" th:field="*{username}">
+            <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+        </div>
+        <div>
+            <label for="password">パスワード</label>
+            <input id="password" type="password" th:field="*{password}">
+            <div class="hint">編集時に未入力の場合は変更されません。</div>
+            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+        <div>
+            <label for="role">権限</label>
+            <select id="role" th:field="*{role}">
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" th:field="*{enabled}"> 有効
+            </label>
+        </div>
+        <div class="actions">
+            <button type="submit">保存</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>
